@@ -19,5 +19,5 @@ jobs:
       run: |
         az deployment group create \
           --resource-group rrtestResourceGroup \
-          --template-file main.bicep \
+          --template-file .github/workflows/main.bicep \
           --parameters vmAdminUsername='${{ secrets.VM_ADMIN_USERNAME }}' vmAdminPassword='${{ secrets.VM_ADMIN_PASSWORD }}'
