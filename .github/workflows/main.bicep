@@ -44,7 +44,7 @@ resource avdAppGroup 'Microsoft.DesktopVirtualization/applicationGroups@2021-07-
   properties: {
     hostPoolArmPath: avdHostPool.id
     applicationGroupType: 'Desktop'
-    preferredAppGroupType: 'Desktop'
+    friendlyName: 'AVD App Group'
   }
 }
 
