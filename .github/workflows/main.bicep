@@ -48,6 +48,24 @@ resource avdAppGroup 'Microsoft.DesktopVirtualization/applicationGroups@2021-07-
   }
 }
 
+resource nicResources 'Microsoft.Network/networkInterfaces@2020-06-01' = [for i in range(0, numberOfVms): {
+  name: 'nic${i}'
+  location: location
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipconfig${i}'
+        properties: {
+          subnet: {
+            id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, subnetName)
+          }
+          privateIPAllocationMethod: 'Dynamic'
+        }
+      }
+    ]
+  }
+}]
+
 resource avdVms 'Microsoft.Compute/virtualMachines@2021-07-01' = [for i in range(0, numberOfVms): {
   name: 'avdVm${i}'
   location: location
@@ -78,23 +96,5 @@ resource avdVms 'Microsoft.Compute/virtualMachines@2021-07-01' = [for i in range
         }
       ]
     }
-  }
-}]
-
-resource nicResources 'Microsoft.Network/networkInterfaces@2020-06-01' = [for i in range(0, numberOfVms): {
-  name: 'nic${i}'
-  location: location
-  properties: {
-    ipConfigurations: [
-      {
-        name: 'ipconfig${i}'
-        properties: {
-          subnet: {
-            id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, subnetName)
-          }
-          privateIPAllocationMethod: 'Dynamic'
-        }
-      }
-    ]
   }
 }]
