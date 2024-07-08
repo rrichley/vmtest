@@ -34,6 +34,7 @@ resource avdHostPool 'Microsoft.DesktopVirtualization/hostPools@2021-07-12' = {
     hostPoolType: 'Pooled'
     loadBalancerType: 'BreadthFirst'
     maxSessionLimit: 10
+    preferredAppGroupType: 'Desktop'
   }
 }
 
@@ -43,6 +44,7 @@ resource avdAppGroup 'Microsoft.DesktopVirtualization/applicationGroups@2021-07-
   properties: {
     hostPoolArmPath: avdHostPool.id
     applicationGroupType: 'Desktop'
+    preferredAppGroupType: 'Desktop'
   }
 }
 
